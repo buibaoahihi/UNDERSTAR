@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UNDERSTAR</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #080808;
+            color: white;
+        }
+
+        /* ===== THANH MENU ===== */
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0f76c0;
+        }
+
+        .logo span {
+            color: rgb(51, 223, 206);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ff3333;
+        }
+
+        /* ===== BANNER ===== */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px 50px;
+
+            background:
+                linear-gradient(
+                    rgba(0,0,0,0.65),
+                    rgba(0,0,0,0.9)
+                ),
+                url("https://cyphersoft.store/images/uploads/1782650002278-69469691.png");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: clamp(45px, 8vw, 90px);
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-shadow: 0 0 30px rgba(255,0,0,0.4);
+        }
+
+        .hero h1 span {
+            color: #ff3333;
+        }
+
+        .hero p {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #cccccc;
+        }
+
+        .buttons {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-main {
+            background: #ff3333;
+            color: white;
+        }
+
+        .btn-main:hover {
+            background: #cc2222;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,0,0,0.3);
+        }
+
+        .btn-discord {
+            background: #5865F2;
+            color: white;
+        }
+
+        .btn-discord:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(88,101,242,0.4);
+        }
+
+        /* ===== THỐNG KÊ ===== */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: #111;
+            padding: 35px 10%;
+            text-align: center;
+            gap: 20px;
+        }
+
+        .stat h2 {
+            color: #ff3333;
+            font-size: 35px;
+        }
+
+        .stat p {
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        /* ===== SECTION ===== */
+
+        section {
+            padding: 90px 10%;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .title h2 {
+            font-size: 40px;
+            text-transform: uppercase;
+        }
+
+        .title p {
+            color: #888;
+            margin-top: 10px;
+        }
+
+        /* ===== TÍNH NĂNG ===== */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: #111;
+            padding: 35px 25px;
+            border-radius: 12px;
+            border: 1px solid #222;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: #ff3333;
+            box-shadow: 0 15px 40px rgba(255,0,0,0.12);
+        }
+
+        .card .icon {
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #999;
+            line-height: 1.6;
+        }
+
+        /* ===== GIỚI THIỆU ===== */
+
+        .about {
+            background: #0d0d0d;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            color: #aaa;
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        /* ===== CÁCH CHƠI ===== */
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px;
+            background: #2d5f4e;
+            border-radius: 10px;
+        }
+
+        .number {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #b11818;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .step p {
+            color: #999;
+            margin-top: 10px;
+        }
+
+        /* ===== CTA ===== */
+
+        .cta {
+            text-align: center;
+            background:
+                linear-gradient(
+                    rgba(100,0,0,0.35),
+                    rgba(0,0,0,0.8)
+                ),
+                url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=2000&q=80");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .cta h2 {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        /* ===== FOOTER ===== */
+
+        footer {
+            background: #080c0c;
+            text-align: center;
+            padding: 30px;
+            color: #0e1313;
+        }
+
+        footer span {
+            color: #1a1515;
+        }
+
+        /* ===== MOBILE ===== */
+
+        @media (max-width: 800px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 70px 6%;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .cta h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ===== MENU ===== -->
+
+<nav>
+
+    <div class="logo">
+        UNDERSTAR <span>ROLEPLAY</span>
+    </div>
+
+    <ul>
+        <li><a href="#home">Trang chủ</a></li>
+        <li><a href="#features">Tính năng</a></li>
+        <li><a href="#about">Giới thiệu</a></li>
+        <li><a href="#join">Tham gia</a></li>
+    </ul>
+
+</nav>
+
+
+<!-- ===== HERO ===== -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>
+            UNDERSTAR 
+            <span>ROLEPLAY</span>
+        </h1>
+
+        <p>
+            Thành phố của bạn – câu chuyện của bạn.
+            Hãy bước vào UNDERSTAR và bắt đầu hành trình của riêng mình.
+        </p>
+
+        <div class="buttons">
+
+            <a class="btn btn-main"
+               href="#join">
+                🎮 Tải Laucher tại đây
+            </a>
+
+            <a class="btn btn-discord"
+               href=""
+               target="_blank">
+                💬 DISCORD
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===== STATS ===== -->
+
+<div class="stats">
+
+    <div class="stat">
+        <h2>100+</h2>
+        <p>Người chơi</p>
+    </div>
+
+    <div class="stat">
+        <h2>24/7</h2>
+        <p>Thời gian hoạt động</p>
+    </div>
+
+    <div class="stat">
+        <h2>50+</h2>
+        <p>Hoạt động & nghề nghiệp</p>
+    </div>
+
+</div>
+
+
+<!-- ===== FEATURES ===== -->
+
+<section id="features">
+
+    <div class="title">
+
+        <h2>Tại sao chọn chúng tôi?</h2>
+
+        <p>
+            Một thế giới GTA RP được xây dựng dành cho cộng đồng.
+        </p>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="card">
+
+            <div class="icon">👮</div>
+
+            <h3>CẢNH SÁT</h3>
+
+            <p>
+                Tham gia lực lượng cảnh sát,
+                bảo vệ thành phố và truy bắt tội phạm.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🚑</div>
+
+            <h3>EMS</h3>
+
+            <p>
+                Trở thành bác sĩ,
+                cứu người và xử lý các tình huống khẩn cấp.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🔧</div>
+
+            <h3>MECHANIC</h3>
+
+            <p>
+                Sửa chữa, nâng cấp và kinh doanh
+                những chiếc xe trong thành phố.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">💰</div>
+
+            <h3>KINH TẾ</h3>
+
+            <p>
+                Làm việc, kiếm tiền, mua nhà,
+                sở hữu xe và xây dựng cuộc sống riêng.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🚗</div>
+
+            <h3>XE CỘ</h3>
+
+            <p>
+                Hệ thống phương tiện đa dạng
+                dành cho mọi phong cách chơi.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="icon">🔥</div>
+
+            <h3>GANG & CRIME</h3>
+
+            <p>
+                Thành lập tổ chức,
+                tranh giành địa bàn và tạo nên những câu chuyện riêng.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===== ABOUT ===== -->
+
+<section class="about" id="about">
+
+    <div class="title">
+
+        <h2>Về server</h2>
+
+    </div>
+
+    <div class="about-content">
+
+        <p>
+            UNDERSTAR Roleplay là một máy chủ GTA RP được xây dựng
+            với mục tiêu tạo ra một thành phố sống động và có chiều sâu.
+            Tại đây, mỗi người chơi đều có thể lựa chọn con đường riêng:
+            trở thành cảnh sát, bác sĩ, thợ sửa xe, doanh nhân,
+            hoặc bước vào thế giới ngầm.
+        </p>
+
+        <br>
+
+        <p>
+            Hãy tạo nhân vật của bạn, gặp gỡ những người chơi khác
+            và viết nên câu chuyện của chính mình tại UNDERSTAR.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ===== HOW TO JOIN ===== -->
+
+<section>
+
+    <div class="title">
+
+        <h2>Cách tham gia</h2>
+
+        <p>
+            Chỉ mất vài phút để bắt đầu.
+        </p>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="number">1</div>
+
+            <h3>Tham gia Discord</h3>
+
+            <p>
+                Vào Discord của server để nhận thông tin
+                và hướng dẫn.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="number">2</div>
+
+            <h3>Đọc luật</h3>
+
+            <p>
+                Tìm hiểu luật RP và các quy định
+                của thành phố.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="number">3</div>
+
+            <h3>Vào thành phố</h3>
+
+            <p>
+                Tạo nhân vật và bắt đầu hành trình
+                của bạn tại UNDERSTAR.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ===== CTA ===== -->
+
+<section class="cta" id="join">
+
+    <h2>SẴN SÀNG BƯỚC VÀO UNDERSTAR ?</h2>
+
+    <p>
+        Thành phố đang chờ bạn.
+    </p>
+
+    <div class="buttons">
+
+        <a class="btn btn-main"
+           href="
+https://raw.githubusercontent.com/TimsComunity/GTAVNRP/main/GTAVNRP-Main.exe">
+            🎮 Tải Laucher tại đây
+        </a>
+
+        <a class="btn btn-discord"
+           href="https://https://discord.com/invite/understar/"
+           target="_blank">
+            💬 THAM GIA DISCORD
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ===== FOOTER ===== -->
+
+<footer>
+
+    © 2026
+    <span>UNDERSTAR</span>
+    —
+    All Rights Reserved.
+
+</footer>
+
+</body>
+</html>
